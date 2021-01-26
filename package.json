@@ -1,6 +1,6 @@
 {
   "name": "ngx-tru-forms-app",
-  "version": "0.0.1-2",
+  "version": "0.0.1-3",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
