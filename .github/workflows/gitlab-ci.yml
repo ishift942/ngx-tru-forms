@@ -1,35 +1,35 @@
-stages:
-  - Lint
-  - Scan
-  - Build
+name: Lint, Scan and build 
 
-lint-job:
-  stage: Lint
-  runs-on: ubuntu-latest
+on: push
 
-  strategy:
-    matrix:
-      node-version: [12.x]
-    script:
-      - npm install
-      - ng lint
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v1
+    - uses: actions/setup-node@v1 #this installs node and npm for us
+      with:
+        node-version: '10.x'
+    - uses: actions/cache@v1    
+    - name: Lint
+      run: |
+        npm install
+        npm run-script lint
+    - name: Build
+    - uses: actions/setup-node@v1 #this installs node and npm for us
+      with:
+        node-version: '10.x'
+      run: |
+        npm install
+        npm run-script build
 
-semgrep:
-  name: Scan
-  runs-on: ubuntu-latest
-  image: returntocorp/semgrep-agent:v1
-  script: semgrep-agent
-  variables:
-    SEMGREP_RULES: >- # more at semgrep.dev/explore
-      p/security-audit
-      p/secrets
-
-build-job1:
-  stage: Build
-  runs-on: ubuntu-latest
-  strategy:
-    matrix:
-      node-version: [12.x]
-  script:
-    - npm install
-    - npm run build
+  semgrep:
+      image: returntocorp/semgrep-agent:v1
+      name: Scan
+      runs-on: ubuntu-latest
+      script: semgrep-agent
+      variables:
+        SEMGREP_RULES: >- # more at semgrep.dev/explore
+          p/security-audit
+          p/secrets
