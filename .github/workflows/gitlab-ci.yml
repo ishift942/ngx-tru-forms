@@ -7,12 +7,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout
-      uses: actions/checkout@v1
     - uses: actions/setup-node@v1 #this installs node and npm for us
       with:
         node-version: '10.x'
     - uses: actions/cache@v1    
     - name: Lint
+    - uses: actions/setup-node@v1 #this installs node and npm for us
+      with:
+        node-version: '10.x'
       run: |
         npm install
         npm run-script lint
@@ -25,8 +27,8 @@ jobs:
         npm run-script build
 
   semgrep:
-      image: returntocorp/semgrep-agent:v1
       name: Scan
+      image: returntocorp/semgrep-agent:v1
       runs-on: ubuntu-latest
       script: semgrep-agent
       variables:
