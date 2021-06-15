@@ -14,15 +14,15 @@ lint-job:
       - npm install
       - ng lint
 
- semgrep:
-    name: Scan
-    runs-on: ubuntu-latest
-    image: returntocorp/semgrep-agent:v1
-    script: semgrep-agent
-    variables:
-      SEMGREP_RULES: >- # more at semgrep.dev/explore
-        p/security-audit
-        p/secrets
+semgrep:
+  name: Scan
+  runs-on: ubuntu-latest
+  image: returntocorp/semgrep-agent:v1
+  script: semgrep-agent
+  variables:
+    SEMGREP_RULES: >- # more at semgrep.dev/explore
+      p/security-audit
+      p/secrets
 
 build-job1:
   stage: Build
