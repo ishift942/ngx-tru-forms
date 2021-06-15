@@ -3,6 +3,25 @@ name: Lint, Scan and build
 on: push
 
 jobs:
+  semgrep:
+      name: Scan
+      runs-on: ubuntu-latest
+      # Skip any PR created by dependabot to avoid permissioning issues
+      if: (github.actor != 'dependabot[bot]')
+      steps:
+        # Checkout project source
+        - uses: actions/checkout@v2
+
+        # Scan code using project's configuration on https://semgrep.dev/manage
+        - uses: returntocorp/semgrep-action@v1
+
+          # Optionally configure job timeout (default is 1800 seconds; set to 0 to disable)
+          #env:
+          #  SEMGREP_TIMEOUT: 300
+          with:
+            # Never fail the build due to findings on pushes, but collect findings data
+            auditOn: push
+
   build-and-deploy:
     runs-on: ubuntu-latest
     steps:
@@ -25,13 +44,3 @@ jobs:
       run: |
         npm install
         npm run-script build
-
-  semgrep:
-      name: Scan
-      image: returntocorp/semgrep-agent:v1
-      runs-on: ubuntu-latest
-      script: semgrep-agent
-      variables:
-        SEMGREP_RULES: >- # more at semgrep.dev/explore
-          p/security-audit
-          p/secrets
