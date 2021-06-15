@@ -38,4 +38,7 @@ jobs:
           with:
             # Never fail the build due to findings on pushes, but collect findings data
             auditOn: push
+            SEMGREP_RULES: >-
+              p/security-audit
+              p/typescript
 
