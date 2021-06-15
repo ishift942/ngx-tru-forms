@@ -30,7 +30,7 @@ jobs:
         - uses: actions/checkout@v2
 
         # Scan code using project's configuration on https://semgrep.dev/manage
-        - uses: returntocorp/semgrep-agent@latest
+        - uses: returntocorp/semgrep-agent:v1
         - run: semgrep --config "p/typescript"
           # Optionally configure job timeout (default is 1800 seconds; set to 0 to disable)
           #env:
