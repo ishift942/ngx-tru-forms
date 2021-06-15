@@ -22,25 +22,27 @@ jobs:
             # Never fail the build due to findings on pushes, but collect findings data
             auditOn: push
 
-  build-and-deploy:
-    runs-on: ubuntu-latest
-    steps:
-    - name: Checkout
-    - uses: actions/setup-node@v1 #this installs node and npm for us
-      with:
-        node-version: '10.x'
-    - uses: actions/cache@v1    
-    - name: Lint
-    - uses: actions/setup-node@v1 #this installs node and npm for us
-      with:
-        node-version: '10.x'
-      run: |
-        npm install
-        npm run-script lint
-    - name: Build
-    - uses: actions/setup-node@v1 #this installs node and npm for us
-      with:
-        node-version: '10.x'
-      run: |
-        npm install
-        npm run-script build
+  # build-and-deploy:
+  #   runs-on: ubuntu-latest
+  #   steps:
+
+  #   - name: Checkout
+  #   - uses: actions/setup-node@v1 
+  #     with:
+  #       node-version: '10.x'    
+
+  #   - name: Lint
+  #   - uses: actions/setup-node@v1 
+  #     with:
+  #       node-version: '10.x'
+  #     run: |
+  #       npm install
+  #       npm run-script lint
+
+  #   - name: Build
+  #   - uses: actions/setup-node@v1
+  #     with:
+  #       node-version: '10.x'
+  #     run: |
+  #       npm install
+  #       npm run-script build
