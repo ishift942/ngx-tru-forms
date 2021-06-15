@@ -31,14 +31,14 @@ jobs:
 
         # Scan code using project's configuration on https://semgrep.dev/manage
         - uses: returntocorp/semgrep-action@v1
-
+        - run: semgrep --config "p/typescript"
           # Optionally configure job timeout (default is 1800 seconds; set to 0 to disable)
           #env:
           #  SEMGREP_TIMEOUT: 300
-          with:
+          # with:
             # Never fail the build due to findings on pushes, but collect findings data
-            auditOn: push
-            SEMGREP_RULES: >-
-              p/security-audit
-              p/typescript
+            # auditOn: push
+            # SEMGREP_RULES: >-
+            #   p/security-audit
+            #   p/typescript
 
