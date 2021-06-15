@@ -4,22 +4,24 @@ on: push
 
 jobs:
 
-  # build:
+  build:
 
-  #   runs-on: ubuntu-latest
+    runs-on: ubuntu-latest
 
-  #   strategy:
-  #     matrix:
-  #       node-version: [12.x]
+    strategy:
+      matrix:
+        node-version: [12.x]
 
-  #   steps:
-  #   - uses: actions/setup-node@v1
-  #     with:
-  #       node-version: ${{ matrix.node-version }}
-  #   - run: npm ci
-  #   - run: npm run lint
-  #   - run: npm run build
- 
+    steps:
+    - uses: actions/checkout@v2
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v1
+      with:
+        node-version: ${{ matrix.node-version }}
+    - run: npm ci
+    - run: npm run lint
+    - run: npm run build
+
   semgrep:
       name: Scan
       runs-on: ubuntu-latest
@@ -38,7 +40,4 @@ jobs:
           with:
             # Never fail the build due to findings on pushes, but collect findings data
             auditOn: push
-          
-          run: |
-            semgrep --config=p/typescript
 
